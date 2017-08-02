@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.jonathanmaldonado.w3d3_ex01.MainActivity">
+
+    <TextView
+        android:id="@+id/tv_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello World!"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
+    <Button
+        android:id="@+id/btn_mainThread"
+        android:text="MainThread"
+        android:onClick="doMainThread"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <Button
+        android:text="SeparateThread"
+        android:onClick="separateThread"
+        android:id="@+id/btn_separateThread"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/btn_handler"
+        android:text="Handler"
+        android:onClick="doWithHandler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/btn_looper"
+        android:onClick="doWithLooper"
+        android:text="Looper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <Button
+        android:text="AsyncTask"
+        android:onClick="doWithAsync"
+        android:id="@+id/btn_asyncTask"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

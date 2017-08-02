@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">w3d3-ex01</string>
+    <string name="lbl_result">Result is: %1$s</string>
+</resources>
