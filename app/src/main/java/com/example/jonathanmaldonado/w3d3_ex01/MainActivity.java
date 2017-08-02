@@ -8,7 +8,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName()+"_TAG";
@@ -16,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView resultTV;
     private MyThread myThread;
+    private EditText urlET;
 
     Handler handler = new Handler(){
         @Override
@@ -91,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setResultTextview (String message){
         String result = String.format(getString(R.string.lbl_result),message);
+        resultTV.setText("");
         resultTV.setText(result);
     }
 
@@ -125,20 +137,42 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void doWithHandler(View view) {
-        final String message = "From thread with handler";
+
         Thread thread = new Thread(){
             @Override
             public void run() {
+                StringBuilder result = new StringBuilder();
                 Message msg =handler.obtainMessage();
                 super.run();
                 Bundle data =new Bundle();
+
+                try{
+                    //sleep(1500);
+                    ///////////////////////////
+
+                    //URL url =new URL("http://www.google.com");
+                    urlET= (EditText) findViewById(R.id.et_webPage);
+                    URL url =new URL("http://"+urlET.getText().toString());
+                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                    InputStream in = new BufferedInputStream(connection.getInputStream());
+                    BufferedReader reader= new BufferedReader(new InputStreamReader(in));
+
+                    String line;
+                    while ((line=reader.readLine()) != null){
+
+                        result.append(line);
+                    }
+
+
+                    /////////////////////
+                } catch (MalformedURLException mue) {
+                    mue.printStackTrace();
+                }catch ( IOException ioe){
+                    ioe.printStackTrace();
+                }
+                final String message = result.toString();
                 data.putString(MESSAGE_EXTRA,message);
                 msg.setData(data);
-                try{
-                    sleep(1500);
-                }catch (InterruptedException e){
-                    e.printStackTrace();
-                }
                 handler.sendMessage(msg);
             }
 
